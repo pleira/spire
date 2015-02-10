@@ -42,6 +42,10 @@ package object unicode {
   implicit class TimesOp[A](lhs: A)(implicit ev: MultiplicativeSemigroup[A]) {
     def ∙(rhs: A): A = ev.times(lhs, rhs)
   }
+  
+  implicit class CrossOp[V[A], A](lhs: V[A])(implicit ev: EuclideanCoordinateSpace[V[A], A]) {
+    def ⨯(rhs: V[A]): V[A] = ev.cross(lhs, rhs)
+  }
 
   implicit class EqOps[A](lhs: A)(implicit ev: Eq[A]) {
     def ≡(rhs: A): Boolean = macro Ops.binop[A, A]
